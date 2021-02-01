@@ -6,12 +6,12 @@ import {
 } from 'react-router-dom';
 import history from './history/history';
 
-import HomeScreen from './container/HomeScreen/HomeScreen';
+import Home from './container/Home/Home';
 
 const Routes = () => (
   <Router history={history}>
     <Switch>
-      <Route exact path='/' component={HomeScreen} />
+      <Route exact path='/' component={Home} />
     </Switch>
   </Router>
 );

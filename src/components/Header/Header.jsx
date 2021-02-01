@@ -4,7 +4,7 @@ import logo from '../../images/logo.png';
 import './Header.scss'
 
 
-function Header() {
+function Header({ openTicketModal }) {
   return (
     <div className='header'>
       <img src={logo} alt='logo' />
@@ -12,7 +12,7 @@ function Header() {
         className="btn"
         type="primary"
         icon="plus"
-        // onClick={() => openNewTicketModal()}
+        onClick={() => openTicketModal()}
       >
         Novo ticket
       </Button>

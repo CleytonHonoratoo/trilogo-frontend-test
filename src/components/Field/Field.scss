@@ -1,0 +1,26 @@
+.Field {
+  padding-right: 10px;
+  padding-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+
+  .label{
+    font-size: 12px;
+    color:  #595959;
+    margin-bottom: 5px;
+
+    &.required {
+      &::after {
+        content: '*';
+        color: red;
+        display:inline-block;
+      }
+    }
+  }
+
+  .field {
+    width: 90%;
+  }
+}
