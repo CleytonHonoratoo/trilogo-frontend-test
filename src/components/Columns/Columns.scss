@@ -2,9 +2,8 @@
   width: 90%;
   height: calc(100vh - 180px);
   background-color: white;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
   position: relative;
+  border-radius: 8px;
 
   .title {
     width: 100%;
@@ -35,5 +34,10 @@
     &.archived{
       background-color: #EFEDED;
     }
+  }
+
+  .content {
+    display: flex;
+    justify-content: center;
   }
 }

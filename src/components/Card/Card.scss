@@ -1,0 +1,50 @@
+.card {
+  width: 90%;
+  height: 146px;
+  margin-top: 10px;
+  border: 1px solid #E5E5E5;
+  box-sizing: border-box;
+  border-radius: 4px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  .ticketType {
+    span {
+      padding: 3px 9px;
+      height: auto;
+      font-size: 11px;
+      border-radius: 10px;
+      color: #1F1F49;
+      background-color: #CAD1EB;
+    }
+  }
+
+  .ticketDescription {
+    display: flex;
+    flex-direction: column;
+
+    .id {
+      font-weight: 500;
+      color: #141414;
+      font-size: 14px;
+    }
+    .description {
+      font-size: 14px;
+      opacity: 0.6;
+    }
+  }
+
+  .ticketResponsible {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    span {
+      font-size: 12px;
+      color: #1F1F49;
+    }
+  }
+}

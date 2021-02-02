@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
 import logo from '../../images/logo.png';
 import './Header.scss'
 
@@ -11,7 +12,7 @@ function Header({ openTicketModal }) {
       <Button
         className="btn"
         type="primary"
-        icon="plus"
+        icon={<PlusOutlined />}
         onClick={() => openTicketModal()}
       >
         Novo ticket

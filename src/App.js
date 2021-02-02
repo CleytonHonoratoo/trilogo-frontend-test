@@ -1,6 +1,6 @@
 import React from 'react';
 import Routes from './router';
-import { LocaleProvider } from 'antd'
+import { LocaleProvider, ConfigProvider } from 'antd'
 import ptBR from 'antd/lib/locale-provider/pt_BR';
 import { Provider } from 'react-redux'
 import 'antd/dist/antd.css';
@@ -12,9 +12,9 @@ const { store } = configureStore();
 const App = () => {
     return (
       <Provider store={store}>
-        <LocaleProvider locale={ptBR}>
+        <ConfigProvider locale={ptBR}>
           <Routes />
-        </LocaleProvider>
+        </ConfigProvider>
       </Provider>
     );
 }
