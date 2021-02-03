@@ -11,6 +11,8 @@ import {
   closeTicketModal,
   changeForm,
   saveTicket,
+  closeTicketModalEdit,
+  openTicketModalEdit,
 } from '../../redux/Home/Home.action';
 
 
@@ -21,10 +23,14 @@ function HomeScreen() {
     showModal,
     tickets,
     form,
+    showModalEdit,
+    ticketId,
   } = useSelector(state => ({
     showModal: state.home.showModal,
     tickets: state.home.tickets,
     form: state.home.form,
+    showModalEdit: state.home.showModalEdit,
+    ticketId: state.home.ticketId,
   }));
 
   const handleForm = (value) => {
@@ -35,9 +41,11 @@ function HomeScreen() {
     if (!form.description) {
       message.warning('Descrição é obrigatória');
     }
-
-    dispatch(saveTicket([...tickets, form]))
+    const id = (Math.random() * ("9999" - "0000") + "0000").split('.')[0];
+    dispatch(saveTicket([...tickets, {...form, id}]))
   }
+
+  const selectedTicket = tickets.filter(value => value.id === ticketId)[0];
 
   return (
     <div className='container'>
@@ -51,13 +59,12 @@ function HomeScreen() {
               title='Aberto'
               status='open'
             >
-              {tickets.length ? (
+              {tickets.map(value => (
                 <Card
-                  type={form.type}
-                  description={form.description}
-                  responsible={form.responsible}
+                  ticket={value}
+                  openTicketModalEdit={() => dispatch(openTicketModalEdit(value.id))}
                 />
-              ) : ''}
+              ))}
             </Columns>
           </Col>
           <Col span={6}>
@@ -84,9 +91,18 @@ function HomeScreen() {
       {showModal && (
         <TicketModal
           closeTicketModal={() => dispatch(closeTicketModal())}
-          editionMode={false}
           handleForm={handleForm}
           saveTicket={createTicket}
+        />
+      )}
+
+      {showModalEdit && (
+        <TicketModal
+          closeTicketModal={() => dispatch(closeTicketModalEdit())}
+          handleForm={handleForm}
+          saveTicket={createTicket}
+          editionMode
+          ticket={selectedTicket}
         />
       )}
     </div>

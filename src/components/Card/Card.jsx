@@ -5,11 +5,11 @@ import { EllipsisOutlined } from '@ant-design/icons';
 import { TicketTypeDict } from '../../utils/TicketType';
 import './Card.scss';
 
-const  actionTicket = () => {
+const  actionTicket = (openTicketModalEdit) => {
   const menu = (
     <Menu>
       <Menu.Item
-        onClick={() => alert('Editar ticket pai')}
+        onClick={() => openTicketModalEdit()}
       >
         Editar
       </Menu.Item>
@@ -29,27 +29,20 @@ const  actionTicket = () => {
 }
 
 const Card = ({
-    type,
-    description,
-    responsible,
-    file,
+  ticket,
+  openTicketModalEdit,
 }) => (
     <div className='card'>
-      {file && (
-        <div>
-          <span>imagem</span>
-        </div>  
-      )}
       <div className='ticketType'>
-        <span>{TicketTypeDict[type]}</span>
+        <span>{TicketTypeDict[ticket.type]}</span>
       </div>
       <div className='ticketDescription'>
-        <span className='id'>6523</span>
-        <span className='description'>{description}</span>
+      <span className='id'>{ticket.id}</span>
+        <span className='description'>{ticket.description}</span>
       </div>
       <div className='ticketResponsible'>
-        <span>{responsible}</span>
-        {actionTicket()}
+        <span>{ticket.responsible}</span>
+        {actionTicket(openTicketModalEdit)}
       </div>
     </div>
 );

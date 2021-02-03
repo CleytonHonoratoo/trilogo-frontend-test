@@ -14,6 +14,7 @@ function TicketModal(props) {
     editionMode,
     handleForm,
     saveTicket,
+    ticket,
   } = props;
 
   return (
@@ -27,6 +28,7 @@ function TicketModal(props) {
       <Field label='Descrição' required>
         <Input
           onChange={el => handleForm({ description: el.target.value })}
+          value={ticket && ticket.description}
         />
       </Field>
 
@@ -34,6 +36,7 @@ function TicketModal(props) {
         <Select
           style={{ width: '100%' }}
           onChange={value => handleForm({ type: value })}
+          value={ticket && ticket.type}
         >
           <Option value={TicketType.Procedure}>{TicketTypeDict[TicketType.Procedure]}</Option>
           <Option value={TicketType.Asset}>{TicketTypeDict[TicketType.Asset]}</Option>
@@ -45,10 +48,11 @@ function TicketModal(props) {
         <Select
           style={{ width: '100%' }}
           onChange={value => handleForm({ responsible: value })}
+          value={ticket && ticket.responsible}
         >
-          <Option value='Cleyton'>Cleyton</Option>
-          <Option value='Joel'>Joel</Option>
-          <Option value='Luan'>Luan</Option>
+          <Option value='Cleyton Honorato'>Cleyton Honorato</Option>
+          <Option value='Joel Maia'>Joel Maia</Option>
+          <Option value='Luan Menezes'>Luan Menezes</Option>
         </Select>
       </Field>
 

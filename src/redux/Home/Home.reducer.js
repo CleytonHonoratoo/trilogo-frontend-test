@@ -1,6 +1,7 @@
 import * as actions from './Home.action';
 
 const defaultForm = {
+  id: null,
   description: '',
   type: null,
   responsible: null,
@@ -9,8 +10,10 @@ const defaultForm = {
 
 const initialState = () => ({
   showModal: false,
+  showModalEdit: false,
   tickets: [],
   form: defaultForm,
+  ticketId: null,
 });
 
 export default function (state = initialState(), action) {
@@ -29,6 +32,17 @@ export default function (state = initialState(), action) {
         ...state,
         tickets: action.payload,
         showModal: false,
+      }
+    case actions.HOME_OPEN_TICKET_MODAL_EDIT:
+      return {
+        ...state,
+        showModalEdit: true,
+        ticketId: action.payload,
+      }
+    case actions.HOME_CLOSE_TICKET_MODAL_EDIT:
+      return {
+        ...state,
+        showModalEdit: false,
       }
     default:
       return state;
