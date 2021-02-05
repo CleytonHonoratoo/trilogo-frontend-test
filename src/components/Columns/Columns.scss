@@ -27,7 +27,7 @@
       background-color: #F8D8C7;
     }
 
-    &.inspect{
+    &.inspected{
       background-color:#D4F0C6;
     }
 
@@ -38,6 +38,8 @@
 
   .content {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
   }
 }

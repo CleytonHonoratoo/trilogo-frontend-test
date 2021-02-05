@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Row, Col, message } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -6,6 +6,7 @@ import Header from '../../components/Header/Header';
 import Columns from '../../components/Columns/Columns'
 import TicketModal from '../../components/TicketModal/TicketModal';
 import Card from '../../components/Card/Card';
+import WarningModal from '../../components/WarningModal/WarningModal';
 import {
   openTicketModal,
   closeTicketModal,
@@ -13,6 +14,7 @@ import {
   saveTicket,
   closeTicketModalEdit,
   openTicketModalEdit,
+  closeWarningModal,
 } from '../../redux/Home/Home.action';
 
 
@@ -25,12 +27,16 @@ function HomeScreen() {
     form,
     showModalEdit,
     ticketId,
+    showModalWarning,
+    changedState,
   } = useSelector(state => ({
     showModal: state.home.showModal,
     tickets: state.home.tickets,
     form: state.home.form,
     showModalEdit: state.home.showModalEdit,
     ticketId: state.home.ticketId,
+    showModalWarning: state.home.showModalWarning,
+    changedStat: state.home.changedState,
   }));
 
   const handleForm = (value) => {
@@ -56,34 +62,81 @@ function HomeScreen() {
         <Row>
           <Col span={6}>
             <Columns
-              title='Aberto'
-              status='open'
+              id="open"
+              title='Abertos'
+              tickets={tickets}
             >
-              {tickets.map(value => (
-                <Card
-                  ticket={value}
-                  openTicketModalEdit={() => dispatch(openTicketModalEdit(value.id))}
-                />
-              ))}
+              {tickets.map(value => {
+                return (
+                  value.status === 'open' && (
+                    <Card
+                      key={value.id}
+                      id={value.id}
+                      ticket={value}
+                      openTicketModalEdit={() => dispatch(openTicketModalEdit(value.id))}
+                      draggable='true'
+                    />
+                  )
+                )
+              })}
             </Columns>
           </Col>
           <Col span={6}>
             <Columns
-              title='Executado'
-              status='executed'
-            />
+              id="executed"
+              title='Executados'
+              tickets={tickets}
+            >
+              {tickets.map(value => {
+                return (
+                  value.status === 'executed' && (
+                    <Card
+                      ticket={value}
+                      openTicketModalEdit={() => dispatch(openTicketModalEdit(value.id))}
+                      draggable='true'
+                    />
+                  )
+                )
+              })}
+            </Columns>
           </Col>
           <Col span={6}>
             <Columns
-              title='Vistoriado'
-              status='inspect'
-            />
+              id='inspected'
+              title='Vistoriados'
+              tickets={tickets}
+            >
+              {tickets.map(value => {
+                return (
+                  value.status === 'inspected' && (
+                    <Card
+                      ticket={value}
+                      openTicketModalEdit={() => dispatch(openTicketModalEdit(value.id))}
+                      draggable='true'
+                    />
+                  )
+                )
+              })}
+            </Columns>
           </Col>
           <Col span={6}>
             <Columns
+              id='archived'
               title='Arquivados'
-              status='archived'
-            />
+              tickets={tickets}
+            >
+              {tickets.map(value => {
+                return (
+                  value.status === 'archived' && (
+                    <Card
+                      ticket={value}
+                      openTicketModalEdit={() => dispatch(openTicketModalEdit(value.id))}
+                      draggable='true'
+                    />
+                  )
+                )
+              })}
+            </Columns>
           </Col>
         </Row>
       </div>
@@ -103,6 +156,16 @@ function HomeScreen() {
           saveTicket={createTicket}
           editionMode
           ticket={selectedTicket}
+        />
+      )}
+
+      {showModalWarning && (
+        <WarningModal
+          closeWarningModal={() => dispatch(closeWarningModal())}
+          id={ticketId}
+          selectedTicket={selectedTicket}
+          tickets={tickets}
+          status={changedState}
         />
       )}
     </div>
