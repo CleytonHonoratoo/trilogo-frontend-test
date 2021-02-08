@@ -17,7 +17,8 @@ import {
   closeWarningModal,
   setBase64,
   deleteTicket,
-  newTickets
+  newTickets,
+  editTicket,
 } from '../../redux/Home/Home.action';
 import { getBase64 } from '../../utils/getBase64';
 
@@ -91,6 +92,18 @@ function HomeScreen() {
     dispatch(saveTicket([...tickets, {...form, id}]))
   }
 
+  const handleEditTicket = () => {
+    const editedTicket = tickets.map(item => {
+      if (item.id === ticketId) {
+       return {...item, ...form}
+      };
+
+      return item;
+    })
+
+    dispatch(editTicket(editedTicket))
+  }
+
   const selectedTicket = tickets.filter(value => value.id === ticketId)[0];
 
   const uploadProps = {
@@ -138,6 +151,8 @@ function HomeScreen() {
                 return (
                   value.status === 'executed' && (
                     <Card
+                      key={value.id}
+                      id={value.id}
                       ticket={value}
                       openTicketModalEdit={() => dispatch(openTicketModalEdit(value.id))}
                       draggable='true'
@@ -158,6 +173,8 @@ function HomeScreen() {
                 return (
                   value.status === 'inspected' && (
                     <Card
+                      key={value.id}
+                      id={value.id}
                       ticket={value}
                       openTicketModalEdit={() => dispatch(openTicketModalEdit(value.id))}
                       draggable='true'
@@ -178,6 +195,8 @@ function HomeScreen() {
                 return (
                   value.status === 'archived' && (
                     <Card
+                      key={value.id}
+                      id={value.id}
                       ticket={value}
                       openTicketModalEdit={() => dispatch(openTicketModalEdit(value.id))}
                       draggable='true'
@@ -205,8 +224,9 @@ function HomeScreen() {
           closeTicketModal={() => dispatch(closeTicketModalEdit())}
           handleForm={handleForm}
           saveTicket={createTicket}
+          editTicket={handleEditTicket}
           editionMode
-          ticket={selectedTicket}
+          ticket={form}
         />
       )}
 

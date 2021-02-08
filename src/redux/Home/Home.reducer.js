@@ -36,7 +36,6 @@ export default function (state = initialState(), action) {
         ...state,
         tickets: action.payload,
         showModal: false,
-        form: defaultForm,
       }
     case actions.HOME_OPEN_TICKET_MODAL_EDIT:
       return {
@@ -85,6 +84,12 @@ export default function (state = initialState(), action) {
       return {
         ...state,
         tickets: action.payload,
+      }
+    case actions.HOME_EDIT_TICKET:
+      return {
+        ...state,
+        tickets: action.payload,
+        showModalEdit: false,
       }
     default:
       return state;

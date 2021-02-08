@@ -12,5 +12,11 @@
       border-color: #814fcc;
       color: #fff;
     }
+
+    &:focus {
+      background-color: #814fcc;
+      border-color: #814fcc;
+      color: #fff;
+    }
   }
 }

@@ -10,6 +10,7 @@ export const HOME_SELECT_TICKET = 'HOME_SELECT_TICKET';
 export const HOME_CLOSE_WARNING_MODAL = 'HOME_CLOSE_WARNING_MODAL';
 export const HOME_SET_BASE_64 = 'HOME_SET_BASE_64';
 export const HOME_DELETE_TICKET = 'HOME_DELETE_TICKET';
+export const HOME_EDIT_TICKET = 'HOME_EDIT_TICKET';
 
 export function openTicketModal() {
   return { type: HOME_OPEN_TICKET_MODAL };
@@ -84,5 +85,12 @@ export function deleteTicket(tickets) {
   return {
     type: HOME_DELETE_TICKET,
     payload: tickets,
+  }
+}
+
+export function editTicket(ticket) {
+  return {
+    type: HOME_EDIT_TICKET,
+    payload: ticket,
   }
 }

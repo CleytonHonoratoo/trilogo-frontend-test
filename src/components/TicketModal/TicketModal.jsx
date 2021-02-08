@@ -16,17 +16,17 @@ function TicketModal(props) {
     saveTicket,
     ticket,
     uploadProps,
+    editTicket,
   } = props;
 
   return (
     <Modal
       title={editionMode ? "Editar Ticket" : "Novo Ticket"}
       visible
-      onOk={saveTicket}
       onCancel={() => closeTicketModal()}
       className="ticketModal"
       footer={[
-        <Button key="submit" onClick={saveTicket} className='btn'>
+        <Button key="submit" onClick={editionMode ? editTicket : saveTicket} className='btn'>
           {editionMode ? "Editar Ticket" : "Criar Ticket"}
         </Button>,
       ]}

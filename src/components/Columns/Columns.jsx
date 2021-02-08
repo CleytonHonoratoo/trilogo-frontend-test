@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux'
 
 import { openWarningModal } from '../../redux/Home/Home.action';
@@ -16,7 +16,6 @@ function Columns(props) {
 
   const drop = (event) => {
     event.preventDefault();
-    const ticketId = event.dataTransfer.getData('ticketId');
     const status = event.dataTransfer.getData('status');
 
     if (status === id) {

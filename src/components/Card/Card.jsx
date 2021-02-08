@@ -31,12 +31,10 @@ function Card({
   const dispatch = useDispatch();
 
   const dragStart = (event) => {
-    const { target } = event;
     const status = newStatus(ticket.status);
 
     dispatch(selectedTicket(ticket.id))
 
-    event.dataTransfer.setData('ticketId', target.id);
     event.dataTransfer.setData('status', status);
   }
 
@@ -48,7 +46,7 @@ function Card({
     const menu = (
       <Menu>
         <Menu.Item
-          onClick={() => openTicketModalEdit()}
+          onClick={() => openTicketModalEdit(ticket.id)}
         >
           Editar
         </Menu.Item>
