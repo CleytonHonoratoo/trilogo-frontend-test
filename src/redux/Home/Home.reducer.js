@@ -6,7 +6,8 @@ const defaultForm = {
   description: 'teste',
   type: 3,
   responsible: "Cleyton Honorato",
-  file: [],
+  files: [],
+  base64fileToPreview: null,
 }
 
 const initialState = () => ({
@@ -14,24 +15,7 @@ const initialState = () => ({
   showModalEdit: false,
   showModalWarning: false,
   changedState: null,
-  tickets: [
-    {
-      id: '6329',
-      status: 'open',
-      description: 'teste',
-      type: 3,
-      responsible: "Cleyton Honorato",
-      file: [],
-    },
-    {
-      id: '6532',
-      status: 'open',
-      description: 'teste',
-      type: 3,
-      responsible: "Cleyton Honorato",
-      file: [],
-    }
-  ],
+  tickets: [],
   form: defaultForm,
   ticketId: null,
 });
@@ -52,6 +36,7 @@ export default function (state = initialState(), action) {
         ...state,
         tickets: action.payload,
         showModal: false,
+        form: defaultForm,
       }
     case actions.HOME_OPEN_TICKET_MODAL_EDIT:
       return {
@@ -86,6 +71,20 @@ export default function (state = initialState(), action) {
         ...state,
         tickets: action.payload,
         showModalWarning: false,
+        changedState: null,
+      }
+    case actions.HOME_SET_BASE_64:
+      return {
+        ...state,
+        form: {
+          ...state.form,
+          base64fileToPreview: action.payload,
+        },
+      };
+    case actions.HOME_DELETE_TICKET:
+      return {
+        ...state,
+        tickets: action.payload,
       }
     default:
       return state;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Row, Col, message } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -15,10 +15,22 @@ import {
   closeTicketModalEdit,
   openTicketModalEdit,
   closeWarningModal,
+  setBase64,
+  deleteTicket,
+  newTickets
 } from '../../redux/Home/Home.action';
+import { getBase64 } from '../../utils/getBase64';
 
 
 function HomeScreen() {
+  useEffect(() => {
+    const getTickets = localStorage.getItem('tickets');
+
+    if (getTickets) {
+      dispatch(newTickets(JSON.parse(getTickets)))
+    }
+  }, []);
+
   const dispatch = useDispatch();
 
   const {
@@ -43,15 +55,49 @@ function HomeScreen() {
     dispatch(changeForm({ ...form, ...value }));
   };
 
+  const setBase = (image) => {
+    dispatch(setBase64(image))
+  }
+
+  const addFile = (file) => {
+    handleForm({ files: [...form.files, file] });
+    getBase64(file, image => setBase(image));
+    return false;
+  };
+
+  const removeFile = (file) => {
+    const index = form.files.findIndex(i => i.uid === file.uid);
+
+    if (index > -1) {
+      return handleForm({ files: [...form.files.slice(0, index), ...form.files.slice(index + 1)]});
+    }
+
+    return false;
+  };
+
+  const removeTicket = (id) => {
+    const removedTicket = tickets.filter(value =>  value.id !== id);
+
+    localStorage.setItem('tickets', JSON.stringify(removedTicket));
+    dispatch(deleteTicket(removedTicket));
+  }
+
   const createTicket = () => {
     if (!form.description) {
       message.warning('Descrição é obrigatória');
     }
     const id = (Math.random() * ("9999" - "0000") + "0000").split('.')[0];
+    localStorage.setItem('tickets', JSON.stringify([...tickets, {...form, id}])); // criando localStorage
     dispatch(saveTicket([...tickets, {...form, id}]))
   }
 
   const selectedTicket = tickets.filter(value => value.id === ticketId)[0];
+
+  const uploadProps = {
+    onRemove: removeFile,
+    beforeUpload: addFile,
+    fileList: form.files,
+  };
 
   return (
     <div className='container'>
@@ -75,6 +121,7 @@ function HomeScreen() {
                       ticket={value}
                       openTicketModalEdit={() => dispatch(openTicketModalEdit(value.id))}
                       draggable='true'
+                      deleteTicket={removeTicket}
                     />
                   )
                 )
@@ -94,6 +141,7 @@ function HomeScreen() {
                       ticket={value}
                       openTicketModalEdit={() => dispatch(openTicketModalEdit(value.id))}
                       draggable='true'
+                      deleteTicket={removeTicket}
                     />
                   )
                 )
@@ -113,6 +161,7 @@ function HomeScreen() {
                       ticket={value}
                       openTicketModalEdit={() => dispatch(openTicketModalEdit(value.id))}
                       draggable='true'
+                      deleteTicket={removeTicket}
                     />
                   )
                 )
@@ -132,6 +181,7 @@ function HomeScreen() {
                       ticket={value}
                       openTicketModalEdit={() => dispatch(openTicketModalEdit(value.id))}
                       draggable='true'
+                      deleteTicket={removeTicket}
                     />
                   )
                 )
@@ -146,6 +196,7 @@ function HomeScreen() {
           closeTicketModal={() => dispatch(closeTicketModal())}
           handleForm={handleForm}
           saveTicket={createTicket}
+          uploadProps={uploadProps}
         />
       )}
 

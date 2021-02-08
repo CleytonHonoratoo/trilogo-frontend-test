@@ -27,14 +27,15 @@ function WarningModal(props) {
   }
 
   const changeStatusTicket = () => {
-    const handleTicket = tickets
-    .filter(value => value.id === id)
-    .map((item) => ({ ...item, status: changedState }));
+    const newHistoryTickets = tickets.map(item => {
+      if (item.id === id) {
+       return {...item, status: changedState}
+      };
 
-    const index = tickets.indexOf(value => value.id === id);
-    const newHistoryTickets = tickets.splice(index, 1);
-
-    dispatch(newTickets([...newHistoryTickets, ...handleTicket]));
+      return item;
+    })
+    localStorage.setItem('tickets', JSON.stringify(newHistoryTickets)); // atualizando localStorage
+    dispatch(newTickets(newHistoryTickets));
   }
 
   return (

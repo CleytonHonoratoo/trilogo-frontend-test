@@ -1,3 +1,16 @@
 .ticketModal {
   width: 384px !important;
+
+  .btn {
+    color: #fff;
+    background-color: #4C12A1;
+    border-color: #4C12A1;
+    border-radius: 15px;
+
+    &:hover {
+      background-color: #814fcc;
+      border-color: #814fcc;
+      color: #fff;
+    }
+  }
 }

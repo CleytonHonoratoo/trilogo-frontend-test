@@ -12,9 +12,10 @@ function Card({
   ticket,
   openTicketModalEdit,
   draggable,
+  deleteTicket,
 }) {
 
-  const newStatusMove = status => {
+  const newStatus = status => {
     switch (status) {
       case 'open':
         return 'executed';
@@ -31,9 +32,7 @@ function Card({
 
   const dragStart = (event) => {
     const { target } = event;
-    const status = newStatusMove(ticket.status);
-    console.log('target: ', target);
-    console.log('status: ', status);
+    const status = newStatus(ticket.status);
 
     dispatch(selectedTicket(ticket.id))
 
@@ -54,7 +53,7 @@ function Card({
           Editar
         </Menu.Item>
         <Menu.Item
-          onClick={() => alert('Excluir ticket pai')}
+          onClick={() => deleteTicket(ticket.id)}
         >
           Excluir
         </Menu.Item>
@@ -76,6 +75,9 @@ function Card({
       onDragStart={dragStart}
       onDragOver={dragOver}
     >
+      {ticket.base64fileToPreview && (
+        <img src={ticket.base64fileToPreview} alt="imageTicket" />
+      )}
       <div className='ticketType'>
         <span>{TicketTypeDict[ticket.type]}</span>
       </div>

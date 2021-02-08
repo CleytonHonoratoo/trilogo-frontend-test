@@ -10,9 +10,7 @@ function Columns(props) {
     title,
     children,
     id,
-    tickets,
   } = props;
-
   const dispatch = useDispatch();
 
 
@@ -20,8 +18,6 @@ function Columns(props) {
     event.preventDefault();
     const ticketId = event.dataTransfer.getData('ticketId');
     const status = event.dataTransfer.getData('status');
-
-    console.log('status', status)
 
     if (status === id) {
      dispatch(openWarningModal(status));

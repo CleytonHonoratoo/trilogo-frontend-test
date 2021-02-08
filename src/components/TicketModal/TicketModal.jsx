@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Input, Select, Upload } from 'antd';
+import { Modal, Input, Select, Upload, Button } from 'antd';
 import { InboxOutlined } from '@ant-design/icons';
  
 import Field from '../Field/Field'
@@ -15,15 +15,21 @@ function TicketModal(props) {
     handleForm,
     saveTicket,
     ticket,
+    uploadProps,
   } = props;
 
   return (
     <Modal
-      title={editionMode ? "Editar ticket" : "Novo Ticket"}
+      title={editionMode ? "Editar Ticket" : "Novo Ticket"}
       visible
       onOk={saveTicket}
       onCancel={() => closeTicketModal()}
       className="ticketModal"
+      footer={[
+        <Button key="submit" onClick={saveTicket} className='btn'>
+          {editionMode ? "Editar Ticket" : "Criar Ticket"}
+        </Button>,
+      ]}
     >
       <Field label='Descrição' required>
         <Input
@@ -57,12 +63,12 @@ function TicketModal(props) {
       </Field>
 
       <Field label='Imagem'>
-        <Dragger>
+        <Dragger {...uploadProps}>
           <p className="ant-upload-drag-icon">
-            <InboxOutlined />
+            <InboxOutlined style={{ color: '#4C12A1' }} />
           </p>
           <p className="ant-upload-text">Arraste uma imagem para anexar ao ticket</p>
-        </Dragger>,
+        </Dragger>
       </Field>
     </Modal>
   )
