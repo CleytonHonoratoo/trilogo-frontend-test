@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
-import logo from '../../images/logo.png';
+import logo from '../../assets/logo.png';
 import './Header.scss'
 
 

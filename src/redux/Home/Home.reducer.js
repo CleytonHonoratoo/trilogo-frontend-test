@@ -1,11 +1,11 @@
 import * as actions from './Home.action';
 
 const defaultForm = {
-  id: '6329',
+  id: '',
   status: 'open',
-  description: 'teste',
+  description: '',
   type: 3,
-  responsible: "Cleyton Honorato",
+  responsible: '',
   files: [],
   base64fileToPreview: null,
 }
@@ -25,7 +25,7 @@ export default function (state = initialState(), action) {
     case actions.HOME_OPEN_TICKET_MODAL:
       return { ...state, showModal: true };
     case actions.HOME_CLOSE_TICKET_MODAL:
-      return { ...state, showModal: false };
+      return { ...state, showModal: false, form: defaultForm };
     case actions.HOME_CHANGE_FORM:
       return {
         ...state,
@@ -41,7 +41,16 @@ export default function (state = initialState(), action) {
       return {
         ...state,
         showModalEdit: true,
-        ticketId: action.payload,
+        ticketId: action.payload.id,
+        form: {
+          id: action.payload.id,
+          status: action.payload.status,
+          description: action.payload.description,
+          type: action.payload.type,
+          responsible: action.payload.responsible,
+          files: action.payload.files,
+          base64fileToPreview: action.payload.base64fileToPreview,
+        }
       }
     case actions.HOME_CLOSE_TICKET_MODAL_EDIT:
       return {

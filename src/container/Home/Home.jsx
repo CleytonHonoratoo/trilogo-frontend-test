@@ -61,7 +61,14 @@ function HomeScreen() {
   }
 
   const addFile = (file) => {
-    handleForm({ files: [...form.files, file] });
+    console.log('file', file)
+    const archive = {
+      name: file.name,
+      uid: file.uid,
+      type: file.type,
+    };
+
+    handleForm({ files: [...form.files, archive] });
     getBase64(file, image => setBase(image));
     return false;
   };
@@ -132,7 +139,7 @@ function HomeScreen() {
                       key={value.id}
                       id={value.id}
                       ticket={value}
-                      openTicketModalEdit={() => dispatch(openTicketModalEdit(value.id))}
+                      openTicketModalEdit={() => dispatch(openTicketModalEdit(value))}
                       draggable='true'
                       deleteTicket={removeTicket}
                     />
@@ -154,7 +161,7 @@ function HomeScreen() {
                       key={value.id}
                       id={value.id}
                       ticket={value}
-                      openTicketModalEdit={() => dispatch(openTicketModalEdit(value.id))}
+                      openTicketModalEdit={() => dispatch(openTicketModalEdit(value))}
                       draggable='true'
                       deleteTicket={removeTicket}
                     />
@@ -176,7 +183,7 @@ function HomeScreen() {
                       key={value.id}
                       id={value.id}
                       ticket={value}
-                      openTicketModalEdit={() => dispatch(openTicketModalEdit(value.id))}
+                      openTicketModalEdit={() => dispatch(openTicketModalEdit(value))}
                       draggable='true'
                       deleteTicket={removeTicket}
                     />
@@ -198,7 +205,7 @@ function HomeScreen() {
                       key={value.id}
                       id={value.id}
                       ticket={value}
-                      openTicketModalEdit={() => dispatch(openTicketModalEdit(value.id))}
+                      openTicketModalEdit={() => dispatch(openTicketModalEdit(value))}
                       draggable='true'
                       deleteTicket={removeTicket}
                     />
@@ -227,6 +234,7 @@ function HomeScreen() {
           editTicket={handleEditTicket}
           editionMode
           ticket={form}
+          uploadProps={uploadProps}
         />
       )}
 

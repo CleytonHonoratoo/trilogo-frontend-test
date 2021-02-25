@@ -46,7 +46,7 @@ function Card({
     const menu = (
       <Menu>
         <Menu.Item
-          onClick={() => openTicketModalEdit(ticket.id)}
+          onClick={() => openTicketModalEdit(ticket)}
         >
           Editar
         </Menu.Item>

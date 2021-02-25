@@ -1,8 +1,10 @@
 import React from 'react';
-import { Modal } from 'antd';
+import { Modal, Button } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { newTickets } from '../../redux/Home/Home.action';
+
+import './WarningModal.scss';
 
 function WarningModal(props) {
   const { id, selectedTicket, closeWarningModal, tickets } = props;
@@ -14,7 +16,7 @@ function WarningModal(props) {
   const dispatch = useDispatch();
 
   const columnTitle = () => {
-    switch (selectedTicket.status) {
+    switch (selectedTicket.status) {  
       case 'open':
         return ' executados';
       case 'executed':
@@ -40,10 +42,17 @@ function WarningModal(props) {
 
   return (
     <Modal
+      className="warningModal"
       title="Alterar Status"
       visible
-      onOk={() => changeStatusTicket()}
-      onCancel={() => closeWarningModal()}
+      footer={[
+        <Button key="submit" onClick={() => changeStatusTicket()} className='btn cancel'>
+          Cancelar
+        </Button>,
+        <Button key="submit" onClick={() => changeStatusTicket()} className='btn'>
+          Mover ticket
+        </Button>,
+      ]}
     >
       <span>
         Você tem certeza que deseja mover o ticket

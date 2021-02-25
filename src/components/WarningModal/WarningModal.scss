@@ -1,0 +1,31 @@
+.warningModal {
+  .btn {
+    color: #fff;
+    background-color: #4C12A1;
+    border-color: #4C12A1;
+    border-radius: 15px;
+
+    &:hover {
+      background-color: #814fcc;
+      border-color: #814fcc;
+      color: #fff;
+    }
+
+    &:focus {
+      background-color: #814fcc;
+      border-color: #814fcc;
+      color: #fff;
+    }
+
+    &.cancel {
+      color: #8c8c8c;
+      background-color: #fff;
+      border-color: #d9d9d9;
+
+      &:hover {
+        border-color: #814fcc;
+        color: #4c12a1;
+      }
+    }
+  }
+}

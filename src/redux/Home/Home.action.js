@@ -41,10 +41,11 @@ export function setBase64(data) {
   }
 }
 
-export function openTicketModalEdit(ticketId) {
+export function openTicketModalEdit(ticket) {
+  console.log('ticket: ', ticket)
   return {
     type: HOME_OPEN_TICKET_MODAL_EDIT,
-    payload: ticketId,
+    payload: ticket,
   }
 }
 
